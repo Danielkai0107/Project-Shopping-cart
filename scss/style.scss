@@ -1,0 +1,250 @@
+@import 'tools';
+@import 'animation';
+@import 'RWD';
+@import 'position';
+@import 'flexbox';
+
+* {
+  position: relative;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  width: 100%;
+  ul {
+    width: 100%;
+    margin: 0 auto;
+    @include flex-row-start;
+    padding: 1rem 1.5rem;
+    li {
+      height: 3rem;
+      margin-right: 3.2rem;
+      a {
+        @include font(1rem, 3rem, 600, 0, 0);
+        @include hover-line(2px, rgb(155, 39, 39), 0.4s);
+      }
+    }
+    .logo {
+      a {
+        display: block;
+        margin-right: 2rem;
+        @include size(5rem, 100%);
+        @include bg-contain;
+        background-image: url('../images/logo.png');
+      }
+    }
+  }
+}
+
+.main {
+  @include flex-row-center;
+  align-items: flex-start;
+  .products {
+    width: 70%;
+    height: calc(100vh - 5rem);
+    overflow: auto;
+    padding: 4rem 1rem;
+    &::-webkit-scrollbar {
+      width: 2px;
+      background-color: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      position: relative;
+      background: #e2e2e2;
+      border-radius: 2px;
+    }
+    h1 {
+      @include font(1.4rem, 1.5, 600, 1px, 0 0.5rem);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ccc;
+    }
+    .card--container {
+      @include flex-row-start;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 2rem;
+      .card {
+        width: 33.333%;
+        margin-bottom: 4rem;
+        padding: 0 0.5rem;
+        &__mainPic {
+          width: 100%;
+          img {
+            @include img-width(100%, 1, contain);
+          }
+          .shop__btn {
+            @include size(2.4rem, 2.4rem);
+            @include absolute-rb(5%, 5%);
+            background-color: #fff;
+            border: none;
+            box-shadow: 1px 1px 5px #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            @include after('+', 2.4rem, 2.4rem) {
+              @include absolute-center;
+              font-size: 2rem;
+              line-height: 2.4rem;
+              color: #ccc;
+            }
+            &:active {
+              box-shadow: none;
+            }
+          }
+        }
+        .content {
+          &__intro {
+            @include font(0.8rem, 1.5, 100, 0, 0);
+          }
+          &__price {
+            margin-top: 0.5rem;
+            @include flex-row-between;
+            p {
+              @include font(0.8rem, 1.5, 600, 0, 0);
+            }
+            h2 {
+              @include font(1rem, 1.5, 600, 0, 0);
+            }
+          }
+        }
+        &__asidePic {
+          width: 25%;
+          margin-top: 2rem;
+          img {
+            @include img-width(100%, 1, contain);
+          }
+        }
+      }
+    }
+  }
+  .shoppingBox {
+    width: 30%;
+    height: calc(100vh - 5rem);
+    overflow: auto;
+    padding: 4rem 1rem 6rem 1rem;
+    &::-webkit-scrollbar {
+      width: 2px;
+      background-color: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      position: relative;
+      background: #e2e2e2;
+      border-radius: 2px;
+    }
+    h1 {
+      @include font(1.4rem, 1.5, 600, 1px, 0);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ccc;
+    }
+    .cart-items {
+      .todo-list__not-found {
+        @include font(1rem, 1.5, 400, 1px, 0);
+        width: 100%;
+        color: #ccc;
+        text-align: center;
+        padding: 1rem 0 2rem 0;
+        margin-top: 1rem;
+      }
+      .shoppingCard {
+        @include flex-row-center;
+        width: 100%;
+        padding: 1rem 0 2rem 0;
+        border-bottom: 1px solid #ccc;
+        margin-top: 1rem;
+        &__img {
+          width: 30%;
+          img {
+            @include img-width(100%, 1, contain);
+          }
+        }
+        &__content {
+          width: 70%;
+          padding: 0 1rem;
+
+          .title {
+            p {
+              @include font(1rem, 1.5, 400, 1px, 0);
+            }
+            span {
+              display: block;
+              @include font(0.5rem, 1.5, 100, 1px, 1.5rem 0 0 0);
+            }
+            .delete {
+              @include absolute-rt(0, 0);
+              @include size(0.8rem, 0.8rem);
+              @include bg-contain;
+              background-image: url('../images/delete.png');
+              opacity: 0.7;
+              cursor: pointer;
+              &:active {
+                opacity: 0.4;
+              }
+            }
+          }
+          .price {
+            margin-top: 0.5rem;
+            @include flex-row-between;
+            p {
+              @include font(1rem, 1.5, 600, 0, 0);
+            }
+            .number {
+              width: 40%;
+              @include flex-row-around;
+              button {
+                @include size(0.8rem, 0.8rem);
+                background-color: transparent;
+                border: none;
+                @include bg-contain;
+                cursor: pointer;
+                opacity: 0.7;
+                &:nth-child(1) {
+                  background-image: url('../images/plus.png');
+                }
+                &:nth-child(3) {
+                  background-image: url('../images/minus-sign.png');
+                }
+                &:active {
+                  opacity: 0.4;
+                }
+              }
+              input {
+                @include size(1.4rem, 1.2rem);
+                text-align: center;
+                font-size: 1rem;
+                border: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .checkout {
+      @include fixed-lb(0, 0);
+      @include flex-row-between;
+      align-items: flex-end;
+      width: 30%;
+      height: 6rem;
+      padding: 2rem 1rem;
+      background-color: #fff;
+      &__content {
+        @include font(1rem, 1.5, 600, 0, 0);
+        span {
+          @include font(0.7rem, 1.5, 400, 1px, 1.3rem 0 0 0);
+          color: #333;
+        }
+      }
+      &__btn {
+        button {
+          background-color: transparent;
+          border: none;
+          @include font(1rem, 1.5, 400, 2px, 0);
+          cursor: pointer;
+          transition: all 0.4s;
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+}
