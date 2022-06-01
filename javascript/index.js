@@ -3,8 +3,9 @@ const cart = document.querySelector('.cart-items');
 const checkoutInfo = document.querySelector('.checkout__content');
 const numberBox = document.querySelectorAll('.number');
 let randomID = Math.floor(Math.random() * 100000);
-let cartItemsData = [];
+let cartItemsData = JSON.parse(localStorage.getItem('shopList')) || [];
 
+//新增購物車資料
 productCard.forEach((element) => {
   const addButton = element.querySelector('.shop__btn');
   let itemNumber = 1;
@@ -27,6 +28,7 @@ productCard.forEach((element) => {
   });
 });
 
+//渲染購物車畫面
 const renderCartItems = () => {
   let cartUI = cartItemsData.map(
     (element) => `<li class="shoppingCard">
@@ -56,8 +58,16 @@ const renderCartItems = () => {
   renderCartInfo();
   deleteItems();
   aditNumber();
+  deleteAllItems();
+  updateLocalStorage();
 };
 
+//上傳 LocalStorage
+const updateLocalStorage = () => {
+  localStorage.setItem('shopList', JSON.stringify(cartItemsData));
+};
+
+//購物車編輯數量
 const aditNumber = () => {
   if (!cartItemsData.length) return;
   const cartItems = document.querySelectorAll('.shoppingCard');
@@ -83,6 +93,7 @@ const aditNumber = () => {
   });
 };
 
+//渲染總數量及總價
 const renderCartInfo = () => {
   const countNumber = cartItemsData.reduce(
     (prev, current) => prev + current.number,
@@ -95,6 +106,7 @@ const renderCartInfo = () => {
   checkoutInfo.innerHTML = `總價 : NT$ ${countPrice}.00 <br/> <span> 共 ${countNumber} 項商品 </span>`;
 };
 
+//刪除單個元素
 const deleteItems = () => {
   if (!cartItemsData.length) return;
   const cartItems = document.querySelectorAll('.shoppingCard');
@@ -105,8 +117,21 @@ const deleteItems = () => {
       const currentID = cartItemsData[index].id;
       cartItemsData = cartItemsData.filter((n) => n.id !== currentID);
       renderCartItems();
+      updateLocalStorage();
     };
   });
 };
 
+//刪除全部元素
+const deleteAllItems = () => {
+  if (!cartItemsData.length) return;
+  const deleteAllButton = document.querySelector('.deleteAll');
+  deleteAllButton.onclick = () => {
+    cartItemsData = [];
+    renderCartItems();
+    updateLocalStorage();
+  };
+};
+
+//執行渲染畫面
 renderCartItems();

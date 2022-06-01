@@ -118,8 +118,7 @@
     }
   }
   .shoppingBox {
-    width: 30%;
-    height: calc(100vh - 5rem);
+    @include size(30%, calc(100vh - 5rem));
     overflow: auto;
     padding: 4rem 1rem 6rem 1rem;
     &::-webkit-scrollbar {
@@ -131,10 +130,29 @@
       background: #e2e2e2;
       border-radius: 2px;
     }
-    h1 {
-      @include font(1.4rem, 1.5, 600, 1px, 0);
-      padding-bottom: 0.5rem;
+    &__title {
+      @include flex-row-between;
       border-bottom: 1px solid #ccc;
+      h1 {
+        @include font(1.4rem, 1.5, 600, 1px, 0);
+        padding-bottom: 0.5rem;
+      }
+      .deleteAll {
+        margin-right: 0.7rem;
+        line-height: 1.2rem;
+        cursor: pointer;
+        @include after('', 1.2rem, 1.2rem) {
+          @include absolute-lt(-2rem, 0);
+          @include bg-contain;
+          background-image: url('../images/trash.png');
+          opacity: 0.7;
+        }
+        &:active {
+          &::after {
+            transform: rotate(20deg);
+          }
+        }
+      }
     }
     .cart-items {
       .todo-list__not-found {
@@ -160,7 +178,6 @@
         &__content {
           width: 70%;
           padding: 0 1rem;
-
           .title {
             p {
               @include font(1rem, 1.5, 400, 1px, 0);
@@ -177,7 +194,7 @@
               opacity: 0.7;
               cursor: pointer;
               &:active {
-                opacity: 0.4;
+                transform: rotate(10deg);
               }
             }
           }
@@ -220,10 +237,9 @@
     }
     .checkout {
       @include fixed-lb(0, 0);
+      @include size(30%, 6rem);
       @include flex-row-between;
       align-items: flex-end;
-      width: 30%;
-      height: 6rem;
       padding: 2rem 1rem;
       background-color: #fff;
       &__content {

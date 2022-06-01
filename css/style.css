@@ -1,3 +1,24 @@
+@-webkit-keyframes fadeIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes fadeIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.fadeIn {
+  -webkit-animation: fadeIn 1.5s forwards;
+          animation: fadeIn 1.5s forwards;
+}
+
 * {
   position: relative;
   box-sizing: border-box;
@@ -187,14 +208,41 @@
   background: #e2e2e2;
   border-radius: 2px;
 }
-.main .shoppingBox h1 {
+.main .shoppingBox__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+.main .shoppingBox__title h1 {
   font-size: 1.4rem;
   line-height: 1.5;
   font-weight: 600;
   letter-spacing: 1px;
   margin: 0;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #ccc;
+}
+.main .shoppingBox__title .deleteAll {
+  margin-right: 0.7rem;
+  line-height: 1.2rem;
+  cursor: pointer;
+}
+.main .shoppingBox__title .deleteAll::after {
+  display: block;
+  content: "";
+  width: 1.2rem;
+  height: 1.2rem;
+  position: absolute;
+  left: -2rem;
+  top: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../images/trash.png");
+  opacity: 0.7;
+}
+.main .shoppingBox__title .deleteAll:active::after {
+  transform: rotate(20deg);
 }
 .main .shoppingBox .cart-items .todo-list__not-found {
   font-size: 1rem;
@@ -260,7 +308,7 @@
   cursor: pointer;
 }
 .main .shoppingBox .cart-items .shoppingCard__content .title .delete:active {
-  opacity: 0.4;
+  transform: rotate(10deg);
 }
 .main .shoppingBox .cart-items .shoppingCard__content .price {
   margin-top: 0.5rem;
@@ -312,12 +360,12 @@
   position: fixed;
   left: 0;
   bottom: 0;
+  width: 30%;
+  height: 6rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   align-items: flex-end;
-  width: 30%;
-  height: 6rem;
   padding: 2rem 1rem;
   background-color: #fff;
 }
