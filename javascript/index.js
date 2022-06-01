@@ -1,9 +1,9 @@
 const productCard = document.querySelectorAll('.card');
 const cart = document.querySelector('.cart-items');
 const checkoutInfo = document.querySelector('.checkout__content');
-let cartItemsData = [];
-let randomID = Math.floor(Math.random() * 100000);
 const numberBox = document.querySelectorAll('.number');
+let randomID = Math.floor(Math.random() * 100000);
+let cartItemsData = [];
 
 productCard.forEach((element) => {
   const addButton = element.querySelector('.shop__btn');
