@@ -3,13 +3,13 @@ const cart = document.querySelector('.cart-items');
 const checkoutInfo = document.querySelector('.checkout__content');
 let cartItemsData = [];
 let randomID = Math.floor(Math.random() * 100000);
+const numberBox = document.querySelectorAll('.number');
 
 productCard.forEach((element) => {
   const addButton = element.querySelector('.shop__btn');
   let itemNumber = 1;
   addButton.addEventListener('click', () => {
     const itemName = element.querySelector('.title').innerHTML;
-    // const productPrice = Number(element.querySelector('.price').dataset.price);
     const Item = cartItemsData.find((item) => item.name === itemName);
     if (Item) {
       Item.number++;
@@ -28,9 +28,7 @@ productCard.forEach((element) => {
 });
 
 const renderCartItems = () => {
-  let cartUI;
-
-  cartUI = cartItemsData.map(
+  let cartUI = cartItemsData.map(
     (element) => `<li class="shoppingCard">
   <figure class="shoppingCard__img">
     <img src="${element.imageSrc}" alt="" />
@@ -57,6 +55,32 @@ const renderCartItems = () => {
     : '<li class="todo-list__not-found">目前沒有商品</li>';
   renderCartInfo();
   deleteItems();
+  aditNumber();
+};
+
+const aditNumber = () => {
+  if (!cartItemsData.length) return;
+  const cartItems = document.querySelectorAll('.shoppingCard');
+
+  cartItems.forEach((element, index) => {
+    const addButton = element.querySelector('.add');
+    const reduceButton = element.querySelector('.reduce');
+    addButton.onclick = () => {
+      cartItemsData[index].number++;
+      renderCartItems();
+    };
+    reduceButton.onclick = () => {
+      cartItemsData[index].number <= 0
+        ? (cartItemsData[index].number = 0)
+        : cartItemsData[index].number--;
+      if (cartItemsData[index].number == 0) {
+        const currentID = cartItemsData[index].id;
+        cartItemsData = cartItemsData.filter((n) => n.id !== currentID);
+        renderCartItems();
+      }
+      renderCartItems();
+    };
+  });
 };
 
 const renderCartInfo = () => {
@@ -64,12 +88,11 @@ const renderCartInfo = () => {
     (prev, current) => prev + current.number,
     0,
   );
-
   const countPrice = cartItemsData.reduce(
     (prev, current) => prev + current.number * current.price,
     0,
   );
-  checkoutInfo.innerHTML = `總價 : NT$ ${countPrice} <br/> <span> 共 ${countNumber} 項商品 </span>`;
+  checkoutInfo.innerHTML = `總價 : NT$ ${countPrice}.00 <br/> <span> 共 ${countNumber} 項商品 </span>`;
 };
 
 const deleteItems = () => {
@@ -77,7 +100,7 @@ const deleteItems = () => {
   const cartItems = document.querySelectorAll('.shoppingCard');
 
   cartItems.forEach((element, index) => {
-    let deleteButton = element.querySelector('.delete');
+    const deleteButton = element.querySelector('.delete');
     deleteButton.onclick = () => {
       const currentID = cartItemsData[index].id;
       cartItemsData = cartItemsData.filter((n) => n.id !== currentID);
